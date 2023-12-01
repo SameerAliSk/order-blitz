@@ -1,0 +1,82 @@
+.nav-container {
+  background-color: #3841e6;
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  width: 16rem;
+  position: fixed;
+  top: 10%;
+}
+.each-heading-container {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  border-bottom: 1px solid #6067eb;
+  justify-content: center;
+}
+
+.sidebar-icons {
+  height: 80px;
+  width: 60px;
+  margin-right: 12px;
+}
+.sidebar-heading {
+  font-size: 26px;
+  padding-top: 14px;
+}
+.sidebar-icon {
+  height: 35px;
+  width: 40px;
+  margin-top: 16px;
+  margin-right: 12px;
+}
+.heading-container {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  margin-top: 20px;
+  margin-left: 12px;
+}
+.side-heading {
+  font-size: 18px;
+  padding-top: 8px;
+  font-weight: 400;
+}
+.scroll-bar {
+  height: 20px;
+  width: 20px;
+  margin-top: 24px;
+  margin-left: 2px;
+}
+.nav-container ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  padding-left: 5rem;
+}
+.nav-container ul li {
+  padding-bottom: 15px;
+  color: white;
+  font-size: 18px;
+}
+.hide-list {
+  display: none;
+}
+a {
+  text-decoration: none;
+}
+a:hover,
+a:focus,
+a.active {
+  background-color: #6067eb;
+  border-radius: 6px;
+  width: 90%;
+}
+.nav-container {
+  position: fixed;
+}
+@media screen and (max-width: 991px) {
+  .hide-sidebar {
+    display: none;
+  }
+}
