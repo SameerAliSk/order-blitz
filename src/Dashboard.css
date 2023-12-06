@@ -1,0 +1,24 @@
+.DashboardContainer {
+    margin-top: 7rem;
+    margin-left: 17rem;
+}
+.graph-heading {
+    font-size: 24px;
+    color: #FF4500;
+}
+.each-graph-container {
+    width: 30%;
+    background-color: #ffffff;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;border-radius: 8px;
+
+}
+.graph-percent {
+    color: #00FF40;
+    font-weight: 800;
+    font-size: 36px;
+    margin: 0px;
+}

@@ -1,14 +1,12 @@
 import "./Nav.css";
-import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { useEffect } from "react";
 import { HiMenu, HiOutlineUserCircle } from "react-icons/hi";
 import Sidebar from "./Sidebar";
 function Nav() {
   const [sidebarOpen, setIsSidebarOpen] = useState(false);
   return (
     <div>
-      <nav className="navbar">
+      <nav className="navbar" style={{height:"10vh"}}>
         <i className="burger">
           <HiMenu
             className="iconHeader margin-logo"

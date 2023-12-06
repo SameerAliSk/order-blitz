@@ -20,13 +20,13 @@ function Sidebar({ sidebarOpen }) {
         </i>
         <h1 className="sidebar-heading">OrderBlitz</h1>
       </div>
-      <a href="#dashboard" className="heading-container">
+      <a href="/" className="heading-container">
         <i>
           <MdOutlineDashboard className="sidebar-icon" />
         </i>
         <h2 className="side-heading">Dashboard</h2>
       </a>
-      <a href="#mange-orders" className="heading-container">
+      <a href="/manage-orders" className="heading-container">
         <i>
           <GrCubes className="sidebar-icon" />
         </i>

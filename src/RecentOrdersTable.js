@@ -1,20 +1,25 @@
-import "./RecentOrdersTable.css"
-import { FaSearch } from "react-icons/fa";
+import "./RecentOrdersTable.css";
+import { useState,useEffect } from "react";
 export default function RecentOrdersTable() {
+    const [recentOrdersData, setRecentOrdersData] = useState([]);
+    useEffect(()=> {const recentOrdersTableInfo = async() => {
+
+    await fetch('https://localhost:7234/api/Orders/recent-orders')
+      .then(response => response.json())
+      .then(data => setRecentOrdersData(data));
+    }
+    console.log(recentOrdersData);
+    recentOrdersTableInfo()},[])
     return(
         <div className="recent-orders-table">
             <div className="orders-header">
                <h1 className="table-Heading">Recent Orders</h1>
-               <div className="search-input-container">
-                <input type="search" placeholder="search order by order id"/>
-                <FaSearch className="search-icon"/>
-               </div>
                </div>
                <div className="table-body">
                 <table >
                         <tr>
                             <th>Id</th>
-                            <th>Customer Id</th>
+                            <th>Customer Name</th>
                             <th>Order Id</th>
                             <th>Products</th>
                             <th>Ordered Date</th>
@@ -23,110 +28,21 @@ export default function RecentOrdersTable() {
                             <th>Amount</th>
                             <th>Address</th>
                         </tr>
-                    
-                     <tr>
-                        <td>1</td>
-                        <td>123456789</td>
-                        <td>123456789123</td>
-                        <td className="products"><span>1 &#10005; iphone 15 pro</span>
-                        <span>2 &#10005; iphone 15 pro max</span>
+                  {recentOrdersData.map((eachOrderData,index) => (
+                     <tr key ={eachOrderData.orderId} >
+                        <td>{index+1}</td>
+                        <td>{eachOrderData.deliveryAddress.split('\n')[0]}</td>
+                        <td>{eachOrderData.orderId}</td>
+                        <td className="products">
+                            {eachOrderData.products.map(eachProduct => <span>{eachProduct.quantity} &#10005; {eachProduct.name} </span>)}
                         </td>
-                        <td>22-07-2023</td>
-                        <td>28-07-2023</td>
-                        <td><select value="Returned" className="status delivered">
-                            <option  value="Ordered">Ordered</option>
-                            <option value="Delivered">Delivered
-                            </option>
-                            <option value="Cancelled">Cancelled</option>
-                            <option value="Returned">Returned</option>
-                            </select></td>
-                        <td><strong>&#8377; 1200</strong></td>
-                        <td>2-71 mohammadnagar,nizamsagar,KamaReddy,Telangana-503302</td>
-                        </tr>
-                        <tr>
-                        <td>1</td>
-                        <td>123456789</td>
-                        <td>123456789123</td>
-                        <td className="products"><span>1 &#10005; iphone 15 pro</span>
-                        <span>2 &#10005; iphone 15 pro max</span>
-                        </td>
-                        <td>22-07-2023</td>
-                        <td>28-07-2023</td>
-                        <td><select value="Returned" className="status delivered">
-                            <option  value="Ordered">Ordered</option>
-                            <option value="Delivered">Delivered
-                            </option>
-                            <option value="Cancelled">Cancelled</option>
-                            <option value="Returned">Returned</option>
-                            </select></td>
-                            
-                        <td><strong>&#8377; 1200</strong></td>
-                        <td>2-71 mohammadnagar,nizamsagar,KamaReddy,Telangana-503302</td>
-                        </tr>
-                        <tr>
-                        <td>1</td>
-                        <td>123456789</td>
-                        <td>123456789123</td>
-                        <td className="products"><span>1 &#10005; iphone 15 pro</span>
-                        <span>2 &#10005; iphone 15 pro max</span>
-                        </td>
-                        <td>22-07-2023</td>
-                        <td>28-07-2023</td>
-                        <td><select value="Returned" className="status delivered">
-                            <option  value="Ordered">Ordered</option>
-                            <option value="Delivered">Delivered
-                            </option>
-                            <option value="Cancelled">Cancelled</option>
-                            <option value="Returned">Returned</option>
-                            </select></td>
-                        <td><strong>&#8377; 1200</strong></td>
-                        <td>2-71 mohammadnagar,nizamsagar,KamaReddy,Telangana-503302</td>
-                        </tr>  
-                        {/* <tr>
-                        <td>2</td>
-                        <td>123456789</td>
-                        <td>123456789123</td>
-                        <td ><span className="products"><span>1 &#10005; iphone 15 pro</span>
-                        <span>2 &#10005; iphone 15 pro max</span></span>
-                        </td>
-                        <td>22-07-2023</td>
-                        <td>28-07-2023</td>
-                        <td><select value="Returned" className="status delivered">
-                            <option  value="Ordered">Ordered</option>
-                            <option value="Delivered">Delivered
-                            </option>
-                            <option value="Cancelled">Cancelled</option>
-                            <option value="Returned">Returned</option>
-                            </select></td>
-                            <td>&#8377; 1200</td>
-                        <td>2-71 mohammadnagar,nizamsagar,KamaReddy,Telangana-503302</td>
-                        </tr>  
-                        <tr>
-                        <td>3</td>
-                        <td>123456789</td>
-                        <td>123456789123</td>
-                        <td ><span className="products"><span >1 &#10005; iphone 15 pro</span></span>
-                        </td>
-                        <td>22-07-2023</td>
-                        <td>28-07-2023</td>
-                        <td>Shipped</td>
-                        <td>&#8377; 1200</td>
-                        <td>2-71 mohammadnagar,nizamsagar,KamaReddy,Telangana-503302</td>
-                        </tr>  
-                        <tr>
-                        <td>4</td>
-                        <td>123456789</td>
-                        <td>123456789123</td>
-                        <td className="products"><span>1 &#10005; iphone 15 pro</span>
-                        <span>2 &#10005; iphone 15 pro max</span>
-                        <span>2 &#10005; iphone 15 pro max</span>
-                        </td>
-                        <td>22-07-2023</td>
-                        <td>28-07-2023</td>
-                        <td>Shipped</td>
-                        <td>&#8377; 1200</td>
-                        <td>2-71 mohammadnagar,nizamsagar,KamaReddy,Telangana-503302</td>
-                        </tr>    */}
+                        <td>{eachOrderData.orderDate}</td>
+                        <td>{eachOrderData.expectedDeliveryDate}</td>
+                        <td > <span style={{padding:"5px 10px"}} className={`status status-padding ${eachOrderData.orderStatus}`}>{eachOrderData.orderStatus}</span></td>
+                        <td style={{width:"80px"}}><strong>&#8377; {eachOrderData.totalOrderAmount}</strong></td>
+                        <td>{eachOrderData.deliveryAddress}</td>
+                        </tr> 
+                        ))}
                 </table>
                </div>
         </div>

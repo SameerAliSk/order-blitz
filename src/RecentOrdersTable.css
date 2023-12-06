@@ -1,6 +1,6 @@
 .recent-orders-table {
   /* width: 92%; */
-  width: 81%;
+  width: 82%;
   height: auto;
   box-shadow: 0 0.4rem 0.8rem #0005;
   border-radius: 0.8rem;
@@ -70,24 +70,29 @@ select {
   padding: 0.4rem 0;
   border-radius: 2rem;
   text-align: center;
+  
 }
 
-.status.delivered {
+.status.Delivered {
   background-color: #86e49d;
   color: #006b21;
+  
 }
 
-.status.cancelled {
-  background-color: #d893a3;
-  color: #b30021 !important;
+.status.Cancelled {
+  background-color: #ff2400;
+  color: #000000 !important;
 }
 
-.status.ordered {
-  background-color: #ebc474;
+.status.Ordered {
+  background-color: #ffef00;
 }
 
-.status.shipped {
+.status.Shipped {
   background-color: #6fcaea;
+}
+.status.Returned {
+  background-color:  #FF6700;
 }
 option:not(:checked) {
   background-color: #fff !important;
@@ -127,7 +132,7 @@ td {
   line-height: 1.1;
   font-size: 14px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 991px) {
   .table-Heading {
     font-size: 18px;
     font-weight: 700;
@@ -140,6 +145,7 @@ td {
   }
   .recent-orders-table {
     margin: 1rem;
+    width: 94vw;
   }
 }
 @media screen and (min-width: 992px) {
@@ -148,5 +154,10 @@ td {
   }
   .table-Heading {
     margin: 1rem;
+  }
+}
+@media screen and (max-width:767px) {
+  .recent-orders-table {
+    width: 92vw;
   }
 }
