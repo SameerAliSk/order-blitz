@@ -1,13 +1,14 @@
 .DashboardContainer {
     margin-top: 7rem;
     margin-left: 17rem;
+    display: flex;
 }
 .graph-heading {
     font-size: 24px;
     color: #FF4500;
 }
 .each-graph-container {
-    width: 30%;
+    width: 35%;
     background-color: #ffffff;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     padding: 6px;
