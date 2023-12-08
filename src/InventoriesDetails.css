@@ -6,19 +6,14 @@ body {
   padding: 0;
   background-color: #f5f5f5;
 }
-.DashboardContainer {
-  margin-top: 7rem;
-  margin-left: 17rem;
+.inventory-info-containers {
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
+  margin-top: 8rem;
+  margin-left: 17rem;
+  justify-content: space-around;
 }
-.graph-heading {
-  font-size: 18px;
-  color: #333333;
-  font-weight: 600;
-}
-.each-graph-container {
+.inventory-info-each-container {
   width: 24%;
   background-color: #ffffff;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -30,18 +25,30 @@ body {
   margin-bottom: 12px;
   height: auto;
 }
-.months-container {
+.info-heading {
+  font-size: 22px;
+  border-bottom: solid 2px #f5f5f5;
+  color: #000000;
   width: 100%;
+  text-align: center;
+  padding: 6px;
+  margin: 0px;
+  font-weight: 700;
 }
-.days-container {
-  width: 50%;
+.each-info-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 12px 0px;
 }
-.revenue-img {
-  height: 8rem;
-  width: 8rem;
+.property-header {
+  margin: 0px;
+  font-weight: 500;
+  font-size: 16px;
 }
-.revenue {
-  font-size: 24px;
-  font-weight: 800;
-  margin: 10px 0px;
+.info-list {
+  margin: 0px;
+}
+.info-list li {
+  padding: 8px 0px;
 }

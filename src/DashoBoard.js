@@ -1,10 +1,7 @@
 import GaugeChart from "react-gauge-chart";
-import { Doughnut } from "react-chartjs-2";
-import { Pie } from "react-chartjs-2";
+import { Doughnut, Pie } from "react-chartjs-2";
 import "./Dashboard.css";
-import React, { useEffect, useRef, useState } from "react";
-import { ArcElement } from "chart.js";
-import { Chart as ChartJS } from "chart.js";
+import React from "react";
 import "chart.js/auto";
 import {
   LineChart,
@@ -63,7 +60,6 @@ const data = [
   { month: "December", value: 320 },
 ];
 
-ChartJS.register(ArcElement);
 function calculatePercentage(value) {
   return (value / 4) * 100;
 }
@@ -83,8 +79,8 @@ export default function DashBoard() {
     datasets: [
       {
         data: [percentages, 100 - percentages],
-        backgroundColor: ["rgb(255, 99, 132)", "#E5E5E5"],
-        hoverBackgroundColor: ["rgb(255, 99, 132)", "#E5E5E5"],
+        backgroundColor: ["#ff6384", "#e5e5e5"],
+        hoverBackgroundColor: ["#ff6384", "#e5e5e5"],
       },
     ],
   };
@@ -114,20 +110,20 @@ export default function DashBoard() {
       {
         data: [30, 20, 15, 30, 25, 13],
         backgroundColor: [
-          "rgb(255, 205, 86)",
-          "#E5E5E5",
-          "rgb(54, 162, 235)",
-          "rgb(255, 99, 132)",
-          "#ff8f00",
-          "rgb(75, 192, 192)",
+          "#ffc107",
+          "#03a9f4",
+          "#4caf50",
+          "#ff5722",
+          "#9c27b0",
+          "#f44336",
         ],
         hoverBackgroundColor: [
-          "rgb(255, 205, 86)",
-          "#E5E5E5",
-          "rgb(54, 162, 235)",
-          "rgb(255, 99, 132)",
-          "#ff8f00",
-          "rgb(75, 192, 192)",
+          "#ffc107",
+          "#03a9f4",
+          "#4caf50",
+          "#ff5722",
+          "#9c27b0",
+          "#f44336",
         ],
         borderColor: "transparent",
         borderWidth: 0,
@@ -168,7 +164,7 @@ export default function DashBoard() {
           style={{ width: "100%", height: "100%" }}
           cornerRadius={0}
           animDelay={1500}
-          textColor="red"
+          textColor="#00cc66"
         />
       </div>
       <div className="each-graph-container">
@@ -184,7 +180,7 @@ export default function DashBoard() {
         <Doughnut data={data3} options={options} />
       </div>
       <div className="each-graph-container">
-        <h1 className="graph-heading">Total Orders Per Day</h1>
+        <h1 className="graph-heading">Total-Revenue</h1>
         <img
           src="https://res.cloudinary.com/dy2gsniki/image/upload/v1701933913/earnings_10013195_slk4eg.png"
           alt="Total-Revenue"
