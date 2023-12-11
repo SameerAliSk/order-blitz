@@ -1,166 +1,163 @@
 .manage-orders-table {
-    /* width: 92%; */
-    width: 81.5%;
-    height: auto;
-    box-shadow: 0 0.4rem 0.8rem #0005;
-    border-radius: 0.8rem;
-    background-color: #fff5;
-    margin: 1rem 2rem 0rem 17rem;
-  }
-  .orders-header {
-    width: 100%;
-    height: 10%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.8rem 1rem;
-    background-color: #808080;
-    border-top-left-radius: 0.8rem;
-    border-top-right-radius: 0.8rem;
-  }
+  /* width: 92%; */
+  width: 81.5%;
+  height: auto;
+  box-shadow: 0 0.4rem 0.8rem #0005;
+  border-radius: 0.8rem;
+  background-color: #fff5;
+  margin: 1rem 2rem 0rem 17rem;
+}
+.orders-header {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  background-color: #808080;
+  border-top-left-radius: 0.8rem;
+  border-top-right-radius: 0.8rem;
+}
+.table-Heading {
+  font-size: 36px;
+  color: #ffffff;
+  padding-left: 12px;
+}
+.search-input-container {
+  width: 35%;
+  height: 100%;
+  background-color: #ffffff;
+  padding: 0 0.8rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3rem !important;
+  display: flex;
+}
+.search-input-container:hover {
+  width: 40%;
+  background-color: #ffffff;
+  box-shadow: 0 0.1rem 0.4rem #0002;
+}
+input[type="search"] {
+  border: none;
+  border-radius: 2rem;
+  height: 40px;
+  outline: none;
+  flex-grow: 1;
+}
+.search-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  background-color: #fff8;
+}
+.table-body {
+  width: 96%;
+  background-color: #fffb;
+  border-radius: 0.6rem;
+  margin: 0.8rem auto;
+  overflow-x: scroll;
+}
+.order-not-found {
+  text-align: center;
+  padding: 10px 0px;
+}
+
+.products {
+  display: flex;
+  flex-direction: column;
+}
+select {
+  outline: none;
+  border: none;
+}
+.status {
+  padding: 0.4rem 0;
+  border-radius: 2rem;
+  text-align: center;
+}
+
+.status.Delivered {
+  color: #006b21;
+}
+
+.status.Cancelled {
+  color: #ff2400;
+}
+
+.status.Ordered {
+  color: #000000;
+}
+
+.status.Shipped {
+  color: #6fcaea;
+}
+.status.Returned {
+  color: #ff6700;
+}
+option:not(:checked) {
+  background-color: #fff !important;
+}
+option {
+  color: rgb(53, 53, 53);
+}
+table {
+  width: 100%;
+  text-align: left;
+  border-spacing: unset;
+}
+tr {
+  border-collapse: collapse;
+}
+
+th {
+  top: 0;
+  left: 0;
+  background-color: #d5d1defe !important;
+  cursor: pointer;
+  text-transform: capitalize;
+  border-style: none;
+  border-collapse: collapse !important;
+}
+tr:nth-child(even) {
+  background-color: #0000000b;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  line-height: 1.1;
+  font-size: 14px;
+}
+@media screen and (max-width: 991px) {
   .table-Heading {
-    font-size: 36px;
-    color: #ffffff;
-    padding-left: 12px;
+    font-size: 18px;
+    font-weight: 700;
   }
   .search-input-container {
-    width: 35%;
-    height: 100%;
-    background-color: #ffffff;
-    padding: 0 0.8rem;
-    align-items: center;
-    justify-content: center;
-    border-radius: 3rem !important;
-    display: flex;
-  }
-  .search-input-container:hover {
-    width: 40%;
-    background-color: #ffffff;
-    box-shadow: 0 0.1rem 0.4rem #0002;
+    width: 98%;
   }
   input[type="search"] {
-    border: none;
-    border-radius: 2rem;
-    height: 40px;
-    outline: none;
-    flex-grow: 1;
+    width: 55%;
   }
-  .search-icon {
-    width: 1.2rem;
-    height: 1.2rem;
-    background-color: #fff8;
+  .manage-orders-table {
+    margin: 1rem;
+    width: 94vw;
   }
-  .table-body {
-    width: 96%;
-    background-color: #fffb;
-    border-radius: 0.6rem;
-    margin: 0.8rem auto;
-    overflow-x: scroll;
+}
+@media screen and (min-width: 992px) {
+  .orders-header {
+    padding: 0rem 1rem;
   }
-  .order-not-found {
-    text-align: center;
-    padding: 10px 0px;
+  .table-Heading {
+    margin: 1rem;
   }
-  
-  .products {
-    display: flex;
-    flex-direction: column;
+}
+@media screen and (max-width: 767px) {
+  .manage-orders-table {
+    width: 92vw;
   }
-  select {
-    outline: none;
-    border: none;
-  }
-  .status {
-    padding: 0.4rem 0;
-    border-radius: 2rem;
-    text-align: center;
-  }
-  
-  .status.Delivered {
-    background-color: #86e49d;
-    color: #006b21;
-  }
-  
-  .status.Cancelled {
-    background-color: #ff2400;
-    color: #000000 !important;
-  }
-  
-  .status.Ordered {
-    background-color: #ffef00;
-  }
-  
-  .status.Shipped {
-    background-color: #6fcaea;
-  }
-  .status.Returned {
-    background-color:  #FF6700;
-  }
-  option:not(:checked) {
-    background-color: #fff !important;
-  }
-  option {
-    color: rgb(53, 53, 53);
-  }
-  table {
-    width: 100%;
-    text-align: left;
-    border-spacing: unset;
-  }
-  tr {
-    border-collapse: collapse;
-  }
-  
-  th {
-    top: 0;
-    left: 0;
-    background-color: #d5d1defe !important;
-    cursor: pointer;
-    text-transform: capitalize;
-    border-style: none;
-    border-collapse: collapse !important;
-  }
-  tr:nth-child(even) {
-    background-color: #0000000b;
-  }
-  
-  th,
-  td {
-    text-align: left;
-    padding: 10px;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    line-height: 1.1;
-    font-size: 14px;
-  }
-  @media screen and (max-width: 991px) {
-    .table-Heading {
-      font-size: 18px;
-      font-weight: 700;
-    }
-    .search-input-container {
-      width: 98%;
-    }
-    input[type="search"] {
-      width: 55%;
-    }
-    .manage-orders-table {
-      margin: 1rem;
-      width: 94vw;
-    }
-  }
-  @media screen and (min-width: 992px) {
-    .orders-header {
-      padding: 0rem 1rem;
-    }
-    .table-Heading {
-      margin: 1rem;
-    }
-  }
-  @media screen and (max-width:767px) {
-    .manage-orders-table {
-      width: 92vw;
-    }
-  }
-  
+}

@@ -70,29 +70,6 @@ select {
   padding: 0.4rem 0;
   border-radius: 2rem;
   text-align: center;
-  
-}
-
-.status.Delivered {
-  background-color: #86e49d;
-  color: #006b21;
-  
-}
-
-.status.Cancelled {
-  background-color: #ff2400;
-  color: #000000 !important;
-}
-
-.status.Ordered {
-  background-color: #ffef00;
-}
-
-.status.Shipped {
-  background-color: #6fcaea;
-}
-.status.Returned {
-  background-color:  #FF6700;
 }
 option:not(:checked) {
   background-color: #fff !important;
@@ -156,7 +133,7 @@ td {
     margin: 1rem;
   }
 }
-@media screen and (max-width:767px) {
+@media screen and (max-width: 767px) {
   .recent-orders-table {
     width: 92vw;
   }

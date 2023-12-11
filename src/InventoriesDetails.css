@@ -9,12 +9,12 @@ body {
 .inventory-info-containers {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 8rem;
+  margin-top: 7rem;
   margin-left: 17rem;
   justify-content: space-around;
 }
 .inventory-info-each-container {
-  width: 24%;
+  width: 20%;
   background-color: #ffffff;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 6px;
@@ -26,7 +26,7 @@ body {
   height: auto;
 }
 .info-heading {
-  font-size: 22px;
+  font-size: 18px;
   border-bottom: solid 2px #f5f5f5;
   color: #000000;
   width: 100%;
@@ -37,7 +37,7 @@ body {
 }
 .each-info-container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 100%;
   padding: 12px 0px;
 }
@@ -48,7 +48,15 @@ body {
 }
 .info-list {
   margin: 0px;
+  list-style-type: none;
 }
 .info-list li {
   padding: 8px 0px;
+}
+.info-list li::before {
+  content: "\2022";
+  color: red;
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 8px;
 }
