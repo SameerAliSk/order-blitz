@@ -102,7 +102,7 @@ export default function ManageOrdersTable({setOrderStatusData}) {
                 </div>):
                (<div className="table-body">
                 {loading ? <p>Loading...</p>:(
-                <table >
+                <table>
                         <tr>
                             <th>Id</th>
                             <th>Customer Name</th>

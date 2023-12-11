@@ -3,7 +3,7 @@
     display: flex;
     margin-top: 6.25rem;
     margin-left: 16rem;
-    justify-content: space-between;
+    justify-content: center;
   }
   
   .all-info-container {

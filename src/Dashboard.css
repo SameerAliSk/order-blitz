@@ -8,7 +8,6 @@ body {
 }
 .DashboardContainer {
   margin-top: 7rem;
-  margin-left: 17rem;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -19,7 +18,7 @@ body {
   font-weight: 600;
 }
 .each-graph-container {
-  width: 24%;
+  width: 48%;
   background-color: #ffffff;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 6px;
@@ -31,10 +30,10 @@ body {
   height: auto;
 }
 .months-container {
-  width: 100%;
+  width: 98%;
 }
 .days-container {
-  width: 50%;
+  width: 98%;
 }
 .revenue-img {
   height: 8rem;
@@ -44,4 +43,32 @@ body {
   font-size: 24px;
   font-weight: 800;
   margin: 10px 0px;
+}
+#doughnut-chart {
+    width: 100%; 
+    height: 300px; 
+    margin: auto;
+  }
+.height {
+   height: 200px; 
+}
+@media screen and (min-width:992px) {
+    .DashboardContainer { 
+     margin-left: 17rem;
+    }
+    .each-graph-container {
+        width: 24%;
+    }
+    .days-container { 
+        width: 48%;
+    }
+    .months-container {
+        width: 99%;
+      }
+
+}
+@media screen and (max-width:767px) {
+    .each-graph-container {
+        width: 96%;
+    }
 }

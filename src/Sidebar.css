@@ -6,6 +6,7 @@
   width: 16rem;
   position: fixed;
   top: 10%;
+  z-index: 2;
 }
 .each-heading-container {
   display: flex;

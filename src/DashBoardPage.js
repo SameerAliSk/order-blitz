@@ -1,3 +1,4 @@
+
 import DashBoard from "./DashoBoard";
 import Nav from "./Nav";
 
@@ -7,6 +8,7 @@ export default function DashBoardPage() {
         <div>
             <Nav/>
             <DashBoard/>
+            
         </div>
     )
 }

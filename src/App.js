@@ -6,6 +6,7 @@ import ManageOrdersPage from "./ManageOrdersPage";
 import DashBoardPage from "./DashBoardPage";
 import InventoriesPage from "./InventoriesPage";
 
+
 function App() {
   return (
     <div>
