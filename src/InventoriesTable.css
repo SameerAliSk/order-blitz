@@ -1,99 +1,103 @@
+.inventory-error-msg {
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+}
 .inventory-table {
-    width: 81.5%;
-    height: auto;
-    box-shadow: 0 0.4rem 0.8rem #0005;
-    border-radius: 0.8rem;
-    background-color: #fff5;
-    margin: 1rem 2rem 0rem 17rem;
+  width: 81.5%;
+  height: auto;
+  box-shadow: 0 0.4rem 0.8rem #0005;
+  border-radius: 0.8rem;
+  background-color: #fff5;
+  margin: 1rem 2rem 0rem 17rem;
+}
+.orders-header {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  background-color: #808080;
+  border-top-left-radius: 0.8rem;
+  border-top-right-radius: 0.8rem;
+}
+.table-Heading {
+  font-size: 36px;
+  color: #ffffff;
+  padding-left: 12px;
+}
+.table-body {
+  width: 96%;
+  background-color: #fffb;
+  border-radius: 0.6rem;
+  margin: 0.8rem auto;
+  overflow-x: scroll;
+}
+.products {
+  display: flex;
+  flex-direction: column;
+}
+select {
+  outline: none;
+  border: none;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+  border-spacing: unset;
+}
+tr {
+  border-collapse: collapse;
+}
+
+th {
+  top: 0;
+  left: 0;
+  background-color: #d5d1defe !important;
+  cursor: pointer;
+  text-transform: capitalize;
+  border-style: none;
+  border-collapse: collapse !important;
+}
+tr:nth-child(even) {
+  background-color: #0000000b;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  line-height: 1.1;
+  font-size: 14px;
+}
+@media screen and (max-width: 991px) {
+  .table-Heading {
+    font-size: 18px;
+    font-weight: 700;
   }
+  .search-input-container {
+    width: 98%;
+  }
+  .inventory-table {
+    margin: 1rem;
+    width: 94vw;
+  }
+}
+@media screen and (min-width: 992px) {
   .orders-header {
-    width: 100%;
-    height: 10%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.8rem 1rem;
-    background-color: #808080;
-    border-top-left-radius: 0.8rem;
-    border-top-right-radius: 0.8rem;
+    padding: 0rem 1rem;
   }
   .table-Heading {
-    font-size: 36px;
-    color: #ffffff;
-    padding-left: 12px;
+    margin: 1rem;
   }
-  .table-body {
-    width: 96%;
-    background-color: #fffb;
-    border-radius: 0.6rem;
-    margin: 0.8rem auto;
-    overflow-x: scroll;
+}
+@media screen and (max-width: 767px) {
+  .inventory-table {
+    width: 92vw;
   }
-  .products {
-    display: flex;
-    flex-direction: column;
-  }
-  select {
-    outline: none;
-    border: none;
-  }
-  
-  table {
-    width: 100%;
-    text-align: left;
-    border-spacing: unset;
-  }
-  tr {
-    border-collapse: collapse;
-  }
-  
-  th {
-    top: 0;
-    left: 0;
-    background-color: #d5d1defe !important;
-    cursor: pointer;
-    text-transform: capitalize;
-    border-style: none;
-    border-collapse: collapse !important;
-  }
-  tr:nth-child(even) {
-    background-color: #0000000b;
-  }
-  
-  th,
-  td {
-    text-align: left;
-    padding: 10px;
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    line-height: 1.1;
-    font-size: 14px;
-  }
-  @media screen and (max-width: 991px) {
-    .table-Heading {
-      font-size: 18px;
-      font-weight: 700;
-    }
-    .search-input-container {
-      width: 98%;
-    }
-    .inventory-table {
-      margin: 1rem;
-      width: 94vw;
-    }
-  }
-  @media screen and (min-width: 992px) {
-    .orders-header {
-      padding: 0rem 1rem;
-    }
-    .table-Heading {
-      margin: 1rem;
-    }
-  }
-  @media screen and (max-width:767px) {
-    .inventory-table {
-      width: 92vw;
-    }
-  }
-  
+}

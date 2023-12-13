@@ -270,7 +270,7 @@ export default function DashBoard() {
         <p className="revenue">10%</p>
       </div>
       <div className="each-graph-container width-container">
-        <h1 className="graph-heading">Sold Products Per Day</h1>
+        <h1 className="graph-heading">Today's Total Orders</h1>
         <div className="doughnut-chart">
           <Doughnut
             data={data3}

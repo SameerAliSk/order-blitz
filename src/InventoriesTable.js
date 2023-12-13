@@ -5,6 +5,9 @@ export default function InventoriesTable() {
       <div className="orders-header">
         <h1 className="table-Heading">All Inventory</h1>
       </div>
+      <div className="inventory-error-msg">
+        <p>Sorry, No products available in this category. 😔</p>
+      </div>
       <div className="table-body">
         <table>
           <tr>
