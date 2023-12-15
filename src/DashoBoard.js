@@ -16,65 +16,25 @@ import {
   YAxis,
   CartesianGrid,
 } from "recharts";
-const pdata = [
-  {
-    name: "MongoDb",
-    student: 11,
-  },
-  {
-    name: "Javascript",
-    student: 15,
-  },
-  {
-    name: "PHP",
-    student: 5,
-  },
-  {
-    name: "Java",
-    student: 10,
-  },
-  {
-    name: "C#",
-    student: 9,
-  },
-  {
-    name: "C++",
-    student: 10,
-  },
-  {
-    name: "C++",
-    student: 10,
-  },
-];
-const data = [
-  { month: "January", value: 100 },
-  { month: "February", value: 200 },
-  { month: "March", value: 150 },
-  { month: "April", value: 250 },
-  { month: "May", value: 180 },
-  { month: "June", value: 210 },
-  { month: "July", value: 300 },
-  { month: "August", value: 270 },
-  { month: "September", value: 220 },
-  { month: "October", value: 190 },
-  { month: "November", value: 280 },
-  { month: "December", value: 320 },
-];
 
 export default function DashBoard() {
   const [revenue, setRevenue] = useState(0);
   const [sales, setSales] = useState(0);
   const [orders, setOrders] = useState(0);
   const [customers, setCustomers] = useState(0);
+  const [returnRate, SetReturnRate] = useState(0);
+  const [todayOrders, setTodayOrders] = useState(0);
+  const [sevenDaySales, SetSevenDaysSale] = useState([]);
+  const [twelveMonthSales, setTwelveMonthSales] = useState([]);
+  const [brandsCount, setBrandsCount] = useState([]);
   const [chartDimensions, setChartDimensions] = useState({
     width: 300,
     height: 180,
   });
 
   const avgSoldQuantity = (sales / orders).toFixed(2);
-  const remainingSoldQuantity = (4 - sales / orders).toFixed(2);
   const avgSpendPerOrder = (revenue / orders).toFixed(2);
-  const remainingSpendPerOrder = ((50000 - revenue / orders) / 1000).toFixed(2);
+  const avgReturnRate = (returnRate / 100).toFixed(2);
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -119,24 +79,45 @@ export default function DashBoard() {
       await fetch("https://localhost:7234/api/Customers/total-customers")
         .then((response) => response.json())
         .then((data) => setCustomers(data));
+      await fetch("https://localhost:7234/api/Orders/average-return-rate")
+        .then((response) => response.json())
+        .then((data) => SetReturnRate(data));
+      await fetch(
+        "https://localhost:7234/api/Orders/orders-count-last-seven-days"
+      )
+        .then((response) => response.json())
+        .then((data) => SetSevenDaysSale(data));
+      await fetch(
+        "https://localhost:7234/api/Orders/orders-count-last-12-months"
+      )
+        .then((response) => response.json())
+        .then((data) => setTwelveMonthSales(data));
+      await fetch("https://localhost:7234/api/Orders/product-counts-by-brand")
+        .then((response) => response.json())
+        .then((data) => setBrandsCount(data));
+      await fetch("https://localhost:7234/api/Orders/total-orders-today")
+        .then((response) => response.json())
+        .then((data) => setTodayOrders(data));
     };
     apiCalls();
   }, []);
+
+  console.log(sevenDaySales);
   const data3 = {
-    labels: [`Achieved ${30}`, `Remaining 50`],
+    labels: [`Achieved ${todayOrders}`, `Remaining ${10 - todayOrders}`],
     datasets: [
       {
-        data: [30, 20],
+        data: [todayOrders, 10 - todayOrders],
         backgroundColor: ["rgb(255, 205, 86)", "#E5E5E5"],
         hoverBackgroundColor: ["rgb(255, 205, 86)", "#E5E5E5"],
       },
     ],
   };
   const data4 = {
-    labels: ["Samsung", "Redmi", "Apple", "Oppo", "Oneplus", "Vivo"],
+    labels: brandsCount.map((eachBrand) => eachBrand.brandName),
     datasets: [
       {
-        data: [30, 20, 15, 30, 25, 13],
+        data: brandsCount.map((eachBrand) => eachBrand.productCount),
         backgroundColor: [
           "#ffc107",
           "#03a9f4",
@@ -233,10 +214,10 @@ export default function DashBoard() {
       <div className="each-graph-container months-container">
         <h1 className="graph-heading">Orders Per Month</h1>
         <ResponsiveContainer width="100%" height={200}>
-          <BarChart data={data} style={{ zIndex: "1" }}>
+          <BarChart data={twelveMonthSales} style={{ zIndex: "1" }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
-              dataKey="month"
+              dataKey="monthName"
               axisLine={{ stroke: "rgb(54, 162, 235)" }}
               tick={{ fill: "rgb(54, 162, 235)" }}
               tickLine={{ stroke: "rgb(54, 162, 235)" }}
@@ -248,7 +229,7 @@ export default function DashBoard() {
             />
             <Tooltip />
             <Legend />
-            <Bar dataKey="value" fill="rgb(75, 192, 192)" barSize={40} />
+            <Bar dataKey="count" fill="rgb(75, 192, 192)" barSize={40} />
           </BarChart>
         </ResponsiveContainer>
       </div>
@@ -257,7 +238,7 @@ export default function DashBoard() {
         <GaugeChart
           id="gauge-chart5"
           nrOfLevels={6}
-          percent={0.1}
+          percent={avgReturnRate}
           arcPadding={0.008}
           needleColor="#000000"
           needleBaseColor="#0000000"
@@ -267,7 +248,7 @@ export default function DashBoard() {
           textColor="#00cc66"
           hideText={true}
         />
-        <p className="revenue">10%</p>
+        <p className="revenue">{returnRate.toFixed(2)}%</p>
       </div>
       <div className="each-graph-container width-container">
         <h1 className="graph-heading">Today's Total Orders</h1>
@@ -290,13 +271,13 @@ export default function DashBoard() {
         />
       </div>
       <div className="each-graph-container days-container">
-        <h1 className="graph-heading">Sales Per Week</h1>
+        <h1 className="graph-heading">Orders Per Week</h1>
         <ResponsiveContainer height={160}>
-          <LineChart data={pdata} style={{ zIndex: "1" }}>
+          <LineChart data={sevenDaySales} style={{ zIndex: "1" }}>
             <CartesianGrid strokeDasharray="5" />
             <XAxis
               axisLine={{ stroke: "blue" }}
-              dataKey="name"
+              dataKey="dayName"
               interval={"preserveStartEnd"}
               tickLine={{ stroke: "red" }}
               tick={{ fill: "green" }}
@@ -310,7 +291,7 @@ export default function DashBoard() {
             <Tooltip />
             <Line
               type="monotone"
-              dataKey="student"
+              dataKey="count"
               stroke="rgb(54, 162, 235)"
               activeDot={{ r: 8 }}
             />

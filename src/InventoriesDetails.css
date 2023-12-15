@@ -10,7 +10,6 @@ body {
   display: flex;
   flex-wrap: wrap;
   margin-top: 7rem;
-  margin-left: 17rem;
   justify-content: space-around;
   align-items: center;
 }
@@ -25,6 +24,7 @@ body {
   border-radius: 8px;
   margin-bottom: 12px;
   height: auto;
+  min-height: 17rem;
 }
 .info-heading {
   font-size: 16px;
@@ -43,49 +43,27 @@ body {
   align-items: center;
   width: 100%;
 }
-.info-list li {
-  padding: 8px 0px;
-}
-.info-list li::before {
-  content: "\2022";
-  color: red;
-  font-weight: bold;
-  display: inline-block;
-  margin-right: 8px;
-}
+
 .inventory-icons {
-  width: 40px;
+  width: 55px;
+  padding-right: 6px;
 }
 .product-img {
-  width: 40px;
+  width: 50px;
+  padding-right: 12px;
 }
 .product-text {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: #2c3539;
 }
 .product-container {
   display: flex;
-  width: 55%;
+  width: 60%;
   justify-content: space-between;
   align-items: center;
 }
-.category-header {
-  font-size: 24px;
-  padding-left: 30px;
-  color: #0cafff;
-  font-weight: bold;
-  padding-right: 50px;
-  margin: 12px 0px;
-}
-.category-selection-container {
-  display: flex;
-  flex-direction: row;
-  width: 98%;
-  background-color: #ffffff;
-  border-radius: 8px;
-  align-items: center;
-}
+
 #select {
   padding: 10px 45px;
   border: 1px solid #00cdac;
@@ -95,4 +73,12 @@ body {
 }
 #select option {
   color: #02aab0;
+}
+.inventory-text {
+  font-size: 16px;
+}
+@media screen and (min-width: 992px) {
+  .inventory-info-containers {
+    margin-left: 17rem;
+  }
 }

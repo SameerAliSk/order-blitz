@@ -1,7 +1,24 @@
+.category-header {
+  font-size: 24px;
+  padding-left: 30px;
+  color: #00cdac;
+  font-weight: bold;
+  padding-right: 50px;
+  margin: 12px 0px;
+}
+.category-selection-container {
+  display: flex;
+  flex-direction: row;
+  width: 82%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  align-items: center;
+}
 .inventory-error-msg {
   text-align: center;
   font-weight: 700;
   font-size: 16px;
+  padding-bottom: 20px;
 }
 .inventory-table {
   width: 81.5%;
@@ -94,6 +111,9 @@ td {
   }
   .table-Heading {
     margin: 1rem;
+  }
+  .category-selection-container {
+    margin-left: 17rem;
   }
 }
 @media screen and (max-width: 767px) {
