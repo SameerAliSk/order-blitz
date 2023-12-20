@@ -42,8 +42,8 @@ export default function DashBoard() {
       let newWidth, newHeight;
 
       if (width < 768) {
-        newWidth = 250;
-        newHeight = 150;
+        newWidth = 300;
+        newHeight = 180;
       } else if (width >= 768 && width < 992) {
         newWidth = 350;
         newHeight = 190;

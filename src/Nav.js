@@ -6,7 +6,7 @@ function Nav() {
   const [sidebarOpen, setIsSidebarOpen] = useState(false);
   return (
     <div>
-      <nav className="navbar" style={{height:"10vh"}}>
+      <nav className="navbar" style={{ height: "10vh" }}>
         <i className="burger">
           <HiMenu
             className="iconHeader margin-logo"
@@ -15,7 +15,8 @@ function Nav() {
         </i>
         <img
           alt="logo"
-          src="https://res.cloudinary.com/dy2gsniki/image/upload/v1701250363/_697d4042-08bb-4927-b82c-8785b500de4c-removebg-preview_y9hbou.png"
+          src="https://actualize.co.in/wp-content/uploads/2023/05/Actualize-updated-logo.png"
+          className="nav-logo"
         />
         <div className="menu menu-right">
           <i>

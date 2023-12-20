@@ -9,7 +9,7 @@ body {
 .inventory-info-containers {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 7rem;
+  margin-top: 12vh;
   justify-content: space-around;
   align-items: center;
 }
@@ -64,21 +64,21 @@ body {
   align-items: center;
 }
 
-#select {
-  padding: 10px 45px;
-  border: 1px solid #00cdac;
-  border-radius: 8px;
-  border-radius: 8px;
-  color: #02aab0;
-}
-#select option {
-  color: #02aab0;
-}
 .inventory-text {
   font-size: 16px;
 }
 @media screen and (min-width: 992px) {
   .inventory-info-containers {
     margin-left: 17rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .inventory-info-each-container {
+    width: 98%;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .inventory-info-each-container {
+    width: 49%;
   }
 }

@@ -63,7 +63,10 @@ nav img {
   height: 30px;
   padding: 5px;
 }
-
+.nav-logo {
+  height: 60px;
+  width: 70px;
+}
 .menu-right .badge {
   position: absolute;
   top: 0;

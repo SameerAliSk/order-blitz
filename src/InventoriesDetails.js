@@ -86,7 +86,7 @@ export default function InventoriesDetails() {
       <div className="inventory-info-each-container">
         <h1 className="info-heading">Top Selling Products</h1>
         {mostSellingProducs.map((eachProduct) => (
-          <div className="info-list">
+          <div className="info-list" key={eachProduct.productItemName}>
             <div className="product-container">
               <img
                 src={eachProduct.productItemImage}
@@ -102,7 +102,7 @@ export default function InventoriesDetails() {
       <div className="inventory-info-each-container">
         <h1 className="info-heading">Least Selling Products</h1>
         {leastSellingProducts.map((eachProduct) => (
-          <div className="info-list">
+          <div className="info-list" key={eachProduct.productItemImage}>
             <div className="product-container">
               <img
                 src={eachProduct.productItemImage}
@@ -118,7 +118,7 @@ export default function InventoriesDetails() {
       <div className="inventory-info-each-container">
         <h1 className="info-heading">Emergency Required items Products</h1>
         {emergencyItemsList.map((eachProduct) => (
-          <div className="info-list">
+          <div className="info-list" key={eachProduct.productItemImage}>
             <div className="product-container">
               <img
                 src={eachProduct.productItemImage}
