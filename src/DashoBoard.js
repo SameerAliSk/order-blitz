@@ -1,8 +1,7 @@
-import GaugeChart from "react-gauge-chart";
-import { Doughnut, Pie } from "react-chartjs-2";
 import "./Dashboard.css";
-import React from "react";
-import { useEffect, useState } from "react";
+import GaugeChart from "react-gauge-chart";
+import React, { useEffect, useState } from "react";
+import { Doughnut, Pie } from "react-chartjs-2";
 import "chart.js/auto";
 import {
   LineChart,
@@ -34,7 +33,7 @@ export default function DashBoard() {
 
   const avgSoldQuantity = (sales / orders).toFixed(2);
   const avgSpendPerOrder = (revenue / orders).toFixed(2);
-  const avgReturnRate = (returnRate / 100).toFixed(2);
+  const avgReturnRate = parseFloat((returnRate / 100).toFixed(2));
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -42,8 +41,8 @@ export default function DashBoard() {
       let newWidth, newHeight;
 
       if (width < 768) {
-        newWidth = 250;
-        newHeight = 150;
+        newWidth = 300;
+        newHeight = 180;
       } else if (width >= 768 && width < 992) {
         newWidth = 350;
         newHeight = 190;
@@ -55,54 +54,43 @@ export default function DashBoard() {
       setChartDimensions({ width: newWidth, height: newHeight });
     };
     window.addEventListener("resize", handleResize);
-
     handleResize();
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const fetchData = async (url, setter) => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data with ${url}`);
+      }
+      const data = await response.json();
+      setter(data);
+    } catch (error) {
+      console.error(`Error fetching data with ${url}`, error);
+    }
+  };
+
   useEffect(() => {
     const apiCalls = async () => {
-      await fetch("https://localhost:7234/api/Orders/total-revenue")
-        .then((response) => response.json())
-        .then((data) => setRevenue(data));
-
-      await fetch("https://localhost:7234/api/Orders/total-orders")
-        .then((response) => response.json())
-        .then((data) => setOrders(data));
-
-      await fetch("https://localhost:7234/api/Orders/total-sales")
-        .then((response) => response.json())
-        .then((data) => setSales(data));
-
-      await fetch("https://localhost:7234/api/Customers/total-customers")
-        .then((response) => response.json())
-        .then((data) => setCustomers(data));
-      await fetch("https://localhost:7234/api/Orders/average-return-rate")
-        .then((response) => response.json())
-        .then((data) => SetReturnRate(data));
-      await fetch(
-        "https://localhost:7234/api/Orders/orders-count-last-seven-days"
-      )
-        .then((response) => response.json())
-        .then((data) => SetSevenDaysSale(data));
-      await fetch(
-        "https://localhost:7234/api/Orders/orders-count-last-12-months"
-      )
-        .then((response) => response.json())
-        .then((data) => setTwelveMonthSales(data));
-      await fetch("https://localhost:7234/api/Orders/product-counts-by-brand")
-        .then((response) => response.json())
-        .then((data) => setBrandsCount(data));
-      await fetch("https://localhost:7234/api/Orders/total-orders-today")
-        .then((response) => response.json())
-        .then((data) => setTodayOrders(data));
+      await Promise.all([
+        fetchData("https://localhost:7234/api/Orders/total-revenue", setRevenue),
+        fetchData("https://localhost:7234/api/Orders/total-orders", setOrders),
+        fetchData("https://localhost:7234/api/Orders/total-sales", setSales),
+        fetchData("https://localhost:7234/api/Customers/total-customers", setCustomers),
+        fetchData("https://localhost:7234/api/Orders/average-return-rate", SetReturnRate),
+        fetchData("https://localhost:7234/api/Orders/orders-count-last-seven-days", SetSevenDaysSale),
+        fetchData("https://localhost:7234/api/Orders/orders-count-last-12-months", setTwelveMonthSales),
+        fetchData("https://localhost:7234/api/Orders/product-counts-by-brand", setBrandsCount),
+        fetchData("https://localhost:7234/api/Orders/total-orders-today", setTodayOrders),
+      ]);
     };
     apiCalls();
   }, []);
-
-  console.log(sevenDaySales);
+  
   const data3 = {
     labels: [`Achieved ${todayOrders}`, `Remaining ${10 - todayOrders}`],
     datasets: [
@@ -162,7 +150,7 @@ export default function DashBoard() {
       },
     },
   };
-
+console.log(twelveMonthSales)
   return (
     <div className="DashboardContainer">
       <div className="each-graph-container">

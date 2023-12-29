@@ -1,12 +1,12 @@
 .nav-container {
-  background-color: #3841e6;
+  background-color: #2874f0;
   height: 92vh;
   display: flex;
   flex-direction: column;
   width: 16rem;
   position: fixed;
   top: 10%;
-  z-index: 2;
+  z-index: 1;
 }
 .each-heading-container {
   display: flex;
@@ -20,6 +20,7 @@
   height: 80px;
   width: 60px;
   margin-right: 12px;
+  color: #ffffff;
 }
 .sidebar-heading {
   font-size: 26px;

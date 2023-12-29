@@ -29,33 +29,28 @@ export default function InventoriesDetails() {
       count: productsCount,
     },
   ];
-
+  const fetchData = async (url, setter) => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch data with ${url}`);
+      }
+      const data = await response.json();
+      setter(data);
+    } catch (error) {
+      console.error(`Error fetching data with ${url}`, error);
+    }
+  };
   useEffect(() => {
     const apiCalls = async () => {
-      await fetch("https://localhost:7234/api/Categories/categories-count")
-        .then((response) => response.json())
-        .then((data) => setCategoriesCount(data));
-
-      await fetch("https://localhost:7234/api/Brands/brands-count")
-        .then((response) => response.json())
-        .then((data) => setBrandsCount(data));
-
-      await fetch("https://localhost:7234/api/Products/products-count")
-        .then((response) => response.json())
-        .then((data) => setProductsCount(data));
-      await fetch(
-        "https://localhost:7234/api/Products/top-three-most-selling-products"
-      )
-        .then((response) => response.json())
-        .then((data) => setMostSellingProducts(data));
-      await fetch(
-        "https://localhost:7234/api/Products/top-three-least-selling-products"
-      )
-        .then((response) => response.json())
-        .then((data) => setLeastSellingProducts(data));
-      await fetch("https://localhost:7234/api/Products/low-stock-products")
-        .then((response) => response.json())
-        .then((data) => setEmergencyItemsList(data));
+      await Promise.all([
+        fetchData("https://localhost:7234/api/Categories/categories-count", setCategoriesCount),
+        fetchData("https://localhost:7234/api/Brands/brands-count", setBrandsCount),
+        fetchData("https://localhost:7234/api/Products/products-count", setProductsCount),
+        fetchData("https://localhost:7234/api/Products/top-three-most-selling-products", setMostSellingProducts),
+        fetchData("https://localhost:7234/api/Products/top-three-least-selling-products", setLeastSellingProducts),
+        fetchData("https://localhost:7234/api/Products/low-stock-products", setEmergencyItemsList),
+      ]);
     };
     apiCalls();
   }, []);
@@ -86,7 +81,7 @@ export default function InventoriesDetails() {
       <div className="inventory-info-each-container">
         <h1 className="info-heading">Top Selling Products</h1>
         {mostSellingProducs.map((eachProduct) => (
-          <div className="info-list">
+          <div className="info-list" key={eachProduct.productItemName}>
             <div className="product-container">
               <img
                 src={eachProduct.productItemImage}
@@ -102,7 +97,7 @@ export default function InventoriesDetails() {
       <div className="inventory-info-each-container">
         <h1 className="info-heading">Least Selling Products</h1>
         {leastSellingProducts.map((eachProduct) => (
-          <div className="info-list">
+          <div className="info-list" key={eachProduct.productItemImage}>
             <div className="product-container">
               <img
                 src={eachProduct.productItemImage}
@@ -116,9 +111,9 @@ export default function InventoriesDetails() {
         ))}
       </div>
       <div className="inventory-info-each-container">
-        <h1 className="info-heading">Emergency Required items Products</h1>
+        <h1 className="info-heading">Emergency Required items</h1>
         {emergencyItemsList.map((eachProduct) => (
-          <div className="info-list">
+          <div className="info-list" key={eachProduct.productItemImage}>
             <div className="product-container">
               <img
                 src={eachProduct.productItemImage}

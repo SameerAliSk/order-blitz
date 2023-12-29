@@ -1,21 +1,15 @@
 /* eslint-disable react/prop-types */
 import "./Sidebar.css";
 import { MdOutlineDashboard } from "react-icons/md";
-import { LiaShippingFastSolid } from "react-icons/lia";
 import { GrCubes } from "react-icons/gr";
 import { MdOutlineInventory } from "react-icons/md";
+import { LuFileBox } from "react-icons/lu";
 function Sidebar({ sidebarOpen }) {
   return (
     <div
       className={sidebarOpen ? "nav-container" : "nav-container hide-sidebar"}
     >
-      <div className="sidebar-items each-heading-container">
-        <i>
-          <LiaShippingFastSolid className="sidebar-icons" />
-        </i>
-        <h1 className="sidebar-heading">OrderBlitz</h1>
-      </div>
-      <a href="/" className="heading-container">
+      <a href="dashboard" className="heading-container">
         <i>
           <MdOutlineDashboard className="sidebar-icon" />
         </i>
@@ -32,6 +26,12 @@ function Sidebar({ sidebarOpen }) {
           <MdOutlineInventory className="sidebar-icon" />
         </i>
         <h2 className="side-heading">Inventories</h2>
+      </a>
+      <a href="/update-products-data" className="heading-container">
+      <i>
+          <LuFileBox className="sidebar-icon" />
+      </i>
+        <h2 className="side-heading">update Products</h2>
       </a>
     </div>
   );

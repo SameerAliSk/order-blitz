@@ -1,5 +1,5 @@
 import "./ManageOrdersInfo.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 const iconData = [
   "https://res.cloudinary.com/dbatijrbu/image/upload/v1701503176/cancelled_5267928_v1imb3.png",
   "https://res.cloudinary.com/dy2gsniki/image/upload/v1702443691/deliveryman_2271106_d8ppni.png",
@@ -14,19 +14,28 @@ export default function ManageOrdersInfo({
 }) {
   const [orders, setOrders] = useState(0);
 
-  useEffect(
-    () => async () => {
-      await fetch("https://localhost:7234/api/Orders/order-counts")
-        .then((response) => response.json())
-        .then((data) => setOrderStatusData(data));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const orderCountsResponse = await fetch("https://localhost:7234/api/Orders/order-counts");
+        const totalOrdersResponse = await fetch("https://localhost:7234/api/Orders/total-orders");
 
-      await fetch("https://localhost:7234/api/Orders/total-orders")
-        .then((response) => response.json())
-        .then((data) => setOrders(data));
-    },
-    []
-  );
-  console.log(orderStatusData);
+        if (!orderCountsResponse.ok || !totalOrdersResponse.ok) {
+          throw new Error("Failed to fetch order counts");
+        }
+
+        const orderCountsData = await orderCountsResponse.json();
+        const totalOrdersData = await totalOrdersResponse.json();
+
+        setOrderStatusData(orderCountsData);
+        setOrders(totalOrdersData);
+      } catch (error) {
+        console.error("Error fetching order data:", error);
+      }
+    };
+
+    fetchData();
+  }, [setOrderStatusData]);
   return (
     <div className="all-containers">
       <div className="manage-info-container">

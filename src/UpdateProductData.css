@@ -1,0 +1,131 @@
+.update-products-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+.excel-upload-container {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  .upload-section-heading {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #009e60;
+  }
+  
+  .file-upload-label {
+    display: block;
+    margin:24px 0px;
+    font-weight: 600;
+    color: #1877F2;
+    font-size: 20px;
+  }
+  
+  
+  .success-msg {
+    color: darkgreen;
+    background-color: lightgreen;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid darkgreen;
+    border-radius: 8px;
+    margin-top: 35px;
+  }
+  .failure-msg {
+    color: darkred;
+    background-color: #fbceb1;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid lightred;
+    border-radius: 8px;
+    margin-top: 35px;
+  }
+  .upload-file-img {
+    width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+   
+  }
+  .upload-button {
+    background-color: #009e60;
+    color: #ffffff;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 0px;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+
+  .file-icon-img {
+    width: 35px; 
+    height: 35px; 
+  }
+  
+  .file-name-size {
+    margin-left: 10px;
+    
+  }
+  
+  .file-name {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .file-size {
+    font-size: 14px;
+    color: #777;
+    margin: 0px;
+  }
+  .file-info {
+    margin-bottom: 20px;
+  }
+  
+  .file-input {
+    display: none;
+  }
+  
+  .file-details {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    background-color: skyblue;
+    border-radius: 8px;
+    padding: 4px 10px;
+    margin-bottom: 30px;
+    border: 1px solid #1877F2;
+  }
+  .upload-excel-file-container {
+    border: 1px dashed #1877F2;
+    width: 70%;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  .upload-excel-file-container p {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+  }
+  .upload-file {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    align-items: center;
+  }

@@ -3,88 +3,88 @@ import { useState,useEffect,useCallback } from "react";
 import { FaSearch } from "react-icons/fa";
 
 export default function ManageOrdersTable({setOrderStatusData}) {
-    const [allOrders, setAllOrders] = useState([]);
+  const [allOrders, setAllOrders] = useState([]);
   const [userSearchId, setUserSearchId] = useState("");
   const [orderNotFound, setOrderNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
 
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-          OnClickSearchId();
-        }
-      };
-    
-
-      const searchInputChangeHandler = async (event) => {
-        const userId = event.target.value;
-        if (userId === "") {
-          await fetchOrders();
-        }
-        setOrderNotFound(false);
-        setUserSearchId(userId);
-      };
-      
-      const fetchOrders = async () => {
-        try {
-          setLoading(true);
-          const response = await fetch("https://localhost:7234/api/Orders/all-orders");
-          const data = await response.json();
-          setAllOrders(data);
-        } catch (error) {
-          console.error("Error fetching orders:", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      useEffect(() => {
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      if (userSearchId === "") {
         fetchOrders();
-      }, [userSearchId]);    
+        return;
+      }
+      onClickSearchId();
+    }
+  };
 
+  const searchInputChangeHandler = async(event) => {
+    const userId = event.target.value;
+    if (userId === "") {
+      await fetchOrders();
+    }
+    setUserSearchId(userId);
+  };
+      
+  const fetchOrders = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("https://localhost:7234/api/Orders/all-orders");
+      const data = await response.json();
+      setAllOrders(data);
+      setOrderNotFound(false);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+  
+  useEffect(() => {
+    if (userSearchId === "") {
+      fetchOrders();
+    }
+  }, [userSearchId, fetchOrders]);  
 
-     const OnClickSearchId = async () => {
-        try {
-          const searchResult = await fetch(`https://localhost:7234/api/Orders/${userSearchId}`);
-    
-          if (searchResult.status === 200) {
-            const singleOrder = await searchResult.json();
-            setAllOrders([singleOrder]);
-          } else {
-            setOrderNotFound(true);
-          }
-        } catch (error) {
-          console.error("Error searching for order:", error);
-        }
-      };
-      const updateOrderStatus = useCallback(
-        async (value, orderId) => {
-          const orderStatusDetails = {
-            orderStatus: value,
-          };
-    
-          const options = {
-            method: "POST",
-            headers: {
-              "content-Type": "application/json",
-            },
-            body: JSON.stringify(orderStatusDetails),
-          };
-    
-          try {
-            await fetch(`https://localhost:7234/api/Orders/update-order-status/${orderId}`, options);
-            const updatedData = await fetch('https://localhost:7234/api/Orders/all-orders')
-            .then(response => response.json());
-            setAllOrders(updatedData);
-            const updatedOrderStatusData = await fetch("https://localhost:7234/api/Orders/order-counts")
-            .then(response => response.json());
+  const onClickSearchId = async () => {
+    try {
+      const searchResult = await fetch(`https://localhost:7234/api/Orders/${userSearchId}`);
 
-           setOrderStatusData(updatedOrderStatusData);
-          } catch (error) {
-            console.error("Error updating order status:", error);
-          }
-        },
-        [] 
-      );
+      if (searchResult.status === 200) {
+        const singleOrder = await searchResult.json();
+        setAllOrders([singleOrder]);
+        setOrderNotFound(false);
+      } else {
+        setOrderNotFound(true);
+      }
+    } catch (error) {
+      console.error("Error searching for order:", error);
+    }
+  };
+  const updateOrderStatus = async (value, orderId) => {
+    const orderStatusDetails = {
+      orderStatus: value,
+    };
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderStatusDetails),
+    };
+
+    try {
+      await fetch(`https://localhost:7234/api/Orders/update-order-status/${orderId}`, options);
+      const updatedData = await fetch("https://localhost:7234/api/Orders/all-orders").then((response) => response.json());
+      setAllOrders(updatedData);
+
+      const updatedOrderStatusData = await fetch("https://localhost:7234/api/Orders/order-counts").then((response) => response.json());
+      setOrderStatusData(updatedOrderStatusData);
+    } catch (error) {
+      console.error("Error updating order status:", error);
+    }
+  };
      
     return(
         <div className="manage-orders-table">
@@ -92,7 +92,7 @@ export default function ManageOrdersTable({setOrderStatusData}) {
                <h1 className="table-Heading">All Orders</h1>
                <div className="search-input-container">
                 <input value={userSearchId} type="search" placeholder="search order by order id" onChange={searchInputChangeHandler} onKeyPress={handleKeyPress}/>
-                <FaSearch style={{cursor:"pointer"}} className="search-icon" onClick={OnClickSearchId}/>
+                <FaSearch style={{cursor:"pointer"}} className="search-icon" onClick={onClickSearchId}/>
                </div>
                </div>
                {orderNotFound ?
@@ -103,6 +103,7 @@ export default function ManageOrdersTable({setOrderStatusData}) {
                (<div className="table-body">
                 {loading ? <p>Loading...</p>:(
                 <table>
+                  <thead>
                         <tr>
                             <th>Id</th>
                             <th>Customer Name</th>
@@ -113,13 +114,14 @@ export default function ManageOrdersTable({setOrderStatusData}) {
                             <th>Status</th>
                             <th>Amount</th>
                             <th>Address</th>
-                        </tr>
+                        </tr></thead>
+                        <tbody>
                     {allOrders.map((eachOrderData,index) =>(
                      <tr key ={eachOrderData.orderId}>
                         <td>{index+1}</td>
                         <td>{eachOrderData.deliveryAddress.split('\n')[0]}</td>
                         <td>{eachOrderData.orderId}</td>
-                        <td className="products">{eachOrderData.products.map(eachProduct => <span>{eachProduct.quantity} &#10005; {eachProduct.name} </span>)}
+                        <td className="products">{eachOrderData.products.map(eachProduct => <span key={eachProduct.name}>{eachProduct.quantity} &#10005; {eachProduct.name} </span>)}
                         </td>
                         <td>{eachOrderData.orderDate}</td>
                         <td>{eachOrderData.expectedDeliveryDate}</td>
@@ -135,7 +137,7 @@ export default function ManageOrdersTable({setOrderStatusData}) {
                             </select></td>
                         <td style={{width:"80px"}}><strong>&#8377; {eachOrderData.totalOrderAmount}</strong></td>
                         <td>{eachOrderData.deliveryAddress}</td>
-                        </tr>))}
+                        </tr>))}</tbody>
                 </table>)}
                </div>) }
         </div>
