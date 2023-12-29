@@ -24,15 +24,17 @@ export default function InventoriesTable() {
     fetchCategoryNames();
   }, []);
 
-  const handleCategoryChange = async (event) => {
+  const OnChangeCategory = async (event) => {
     const selectedCategoryId = event.target.value;
     setCategoryId(selectedCategoryId);
+
     if (selectedCategoryId !== "") {
       setIsCategoryIdNull(false);
       try {
         const response = await fetch(
           `https://localhost:7234/api/Categories/${selectedCategoryId}`
         );
+        console.log("Response status:", response.status);
 
         if (response.status === 200) {
           const data = await response.json();
