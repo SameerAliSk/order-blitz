@@ -1,34 +1,18 @@
 import { useState, useEffect } from "react";
-import "./InventoriesDetails.css";
+import "../Css/Order-Management/InventoriesDetails.css";
 
 export default function InventoriesDetails() {
-  const [categoriesCount, setCategoriesCount] = useState(0);
-  const [brandsCount, setBrandsCount] = useState(0);
-  const [productsCount, setProductsCount] = useState(0);
   const [mostSellingProducs, setMostSellingProducts] = useState([]);
   const [leastSellingProducts, setLeastSellingProducts] = useState([]);
   const [emergencyItemsList, setEmergencyItemsList] = useState([]);
+  const [inventoryInfo,setInventoryInfo] = useState([])
 
   const inventoryDetails = [
-    {
-      imageUrl:
         "https://res.cloudinary.com/dy2gsniki/image/upload/v1702446805/dashboard_7205329_obl9em.png",
-      name: "Total Categories",
-      count: categoriesCount,
-    },
-    {
-      imageUrl:
         "https://res.cloudinary.com/dy2gsniki/image/upload/v1702446805/tags_2578920_hwious.png",
-      name: "Total Brands",
-      count: brandsCount,
-    },
-    {
-      imageUrl:
         "https://res.cloudinary.com/dy2gsniki/image/upload/v1702446805/packaging_4213362_kgi5sn.png",
-      name: "Total Products",
-      count: productsCount,
-    },
   ];
+  
   const fetchData = async (url, setter) => {
     try {
       const response = await fetch(url);
@@ -44,11 +28,9 @@ export default function InventoriesDetails() {
   useEffect(() => {
     const apiCalls = async () => {
       await Promise.all([
-        fetchData("https://localhost:7234/api/Categories/categories-count", setCategoriesCount),
-        fetchData("https://localhost:7234/api/Brands/brands-count", setBrandsCount),
-        fetchData("https://localhost:7234/api/Products/products-count", setProductsCount),
-        fetchData("https://localhost:7234/api/Products/top-three-most-selling-products", setMostSellingProducts),
-        fetchData("https://localhost:7234/api/Products/top-three-least-selling-products", setLeastSellingProducts),
+        fetchData("https://localhost:7234/api/Categories/Inventory-Info", setInventoryInfo),
+        fetchData("https://localhost:7234/api/Products/top-products?number=3&isLeastSelling=false", setMostSellingProducts),
+        fetchData("https://localhost:7234/api/Products/top-products?number=3&isLeastSelling=true", setLeastSellingProducts),
         fetchData("https://localhost:7234/api/Products/low-stock-products", setEmergencyItemsList),
       ]);
     };
@@ -58,25 +40,24 @@ export default function InventoriesDetails() {
     <div className="inventory-info-containers">
       <div className="inventory-info-each-container">
         <h1 className="info-heading">Inventory Details</h1>
-        {inventoryDetails.map((eachInventory) => (
+        {Object.entries(inventoryInfo).map(([propertyName,value],index) =>
           <div
-            key={eachInventory.name}
+            key={propertyName}
             className="info-list"
             style={{ paddingBottom: "12px", paddingTop: "8px" }}
           >
             <div className="product-container">
               <img
-                src={eachInventory.imageUrl}
-                alt={eachInventory.name}
+                src={inventoryDetails[index]}
+                alt={propertyName}
                 className="inventory-icons"
               />
               <p className="product-text inventory-text">
-                {eachInventory.name}
+                {propertyName}
               </p>
             </div>
-            <p className="product-text inventory-text">{eachInventory.count}</p>
-          </div>
-        ))}
+            <p className="product-text inventory-text">{value}</p>
+          </div>)}
       </div>
       <div className="inventory-info-each-container">
         <h1 className="info-heading">Top Selling Products</h1>

@@ -1,4 +1,4 @@
-import "./InventoriesTable.css";
+import "../Css/Order-Management/InventoriesTable.css";
 import { useState, useEffect } from "react";
 export default function InventoriesTable() {
   const [categoryId, setCategoryId] = useState("");
@@ -34,7 +34,6 @@ export default function InventoriesTable() {
         const response = await fetch(
           `https://localhost:7234/api/Categories/${selectedCategoryId}`
         );
-        console.log("Response status:", response.status);
 
         if (response.status === 200) {
           const data = await response.json();
@@ -58,33 +57,12 @@ export default function InventoriesTable() {
     const filteredCategory = allCategoryNames.find((category) => category.categoryId === categoryId);
     return filteredCategory ? filteredCategory.categoryName : "";
   };
-  const syncDataFromExcel = async () => {
-    try {
-      const response = await fetch(
-        "https://localhost:7234/api/Products/sync-from-excel",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({}),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to sync from Excel");
-      }
-      await handleCategoryChange({ target: { value: categoryId } });
-    } catch (error) {
-      console.error("Error syncing from Excel:", error);
-    }
-  };
   return (
     <>
       <div className="choose-category-container">
         <div className="category-selection-container">
           <h1 className="category-header">choose category</h1>
-          <select value={categoryId} id="select" onChange={handleCategoryChange}>
+          <select value={categoryId} id="select" onChange={OnChangeCategory}>
             <option value={""}>----Select----</option>
             {allCategoryNames.map((eachCategory) => (
               <option
@@ -102,9 +80,6 @@ export default function InventoriesTable() {
           <h1 className="table-Heading">
             {getFilteredCategoryName()} Inventory
           </h1>
-          <button className="update-data-btn" onClick={syncDataFromExcel}>
-            Update Product Data
-          </button>
         </div>
         {(displayErrorMsg || isCategoryIdNull) ? (
           <div className="inventory-error-msg">

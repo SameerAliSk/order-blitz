@@ -1,4 +1,4 @@
-import "./Dashboard.css";
+import "../Css/Order-Management/Dashboard.css";
 import GaugeChart from "react-gauge-chart";
 import React, { useEffect, useState } from "react";
 import { Doughnut, Pie } from "react-chartjs-2";
@@ -17,12 +17,9 @@ import {
 } from "recharts";
 
 export default function DashBoard() {
-  const [revenue, setRevenue] = useState(0);
-  const [sales, setSales] = useState(0);
-  const [orders, setOrders] = useState(0);
-  const [customers, setCustomers] = useState(0);
   const [returnRate, SetReturnRate] = useState(0);
   const [todayOrders, setTodayOrders] = useState(0);
+  const [combinedData,setCombinedData] = useState([]);
   const [sevenDaySales, SetSevenDaysSale] = useState([]);
   const [twelveMonthSales, setTwelveMonthSales] = useState([]);
   const [brandsCount, setBrandsCount] = useState([]);
@@ -31,9 +28,15 @@ export default function DashBoard() {
     height: 180,
   });
 
-  const avgSoldQuantity = (sales / orders).toFixed(2);
-  const avgSpendPerOrder = (revenue / orders).toFixed(2);
-  const avgReturnRate = parseFloat((returnRate / 100).toFixed(2));
+  const iconData = [
+    "https://res.cloudinary.com/dbatijrbu/image/upload/v1701689454/service_9119160_luxciw.png",
+    "https://res.cloudinary.com/dbatijrbu/image/upload/v1701689454/sale_5661388_zjowna.png",
+    "https://res.cloudinary.com/dy2gsniki/image/upload/v1702286813/sold-out_2037835_yaxcif.png",
+    "https://res.cloudinary.com/dy2gsniki/image/upload/v1702287666/charity_5292590_qfgfov.png",
+    "https://res.cloudinary.com/dy2gsniki/image/upload/v1701933913/earnings_10013195_slk4eg.png",
+  ];
+  
+  // const avgReturnRate = parseFloat((returnRate / 100).toFixed(2));
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -68,28 +71,34 @@ export default function DashBoard() {
         throw new Error(`Failed to fetch data with ${url}`);
       }
       const data = await response.json();
-      setter(data);
+      if (url === "https://localhost:7234/api/Orders/order-counts") {
+        const totalOrders = data["Total-Orders"];
+        const returnedOrders = data["Returned"];
+        const avgRate = ((returnedOrders / totalOrders) * 100).toFixed(2);
+        setter(avgRate);
+      } else {
+        setter(data);
+      };
     } catch (error) {
       console.error(`Error fetching data with ${url}`, error);
     }
   };
-
+  useEffect(() => {
+    setTodayOrders(sevenDaySales[0]?.count || 0);
+  }, [sevenDaySales]);
   useEffect(() => {
     const apiCalls = async () => {
       await Promise.all([
-        fetchData("https://localhost:7234/api/Orders/total-revenue", setRevenue),
-        fetchData("https://localhost:7234/api/Orders/total-orders", setOrders),
-        fetchData("https://localhost:7234/api/Orders/total-sales", setSales),
-        fetchData("https://localhost:7234/api/Customers/total-customers", setCustomers),
-        fetchData("https://localhost:7234/api/Orders/average-return-rate", SetReturnRate),
-        fetchData("https://localhost:7234/api/Orders/orders-count-last-seven-days", SetSevenDaysSale),
-        fetchData("https://localhost:7234/api/Orders/orders-count-last-12-months", setTwelveMonthSales),
+        fetchData("https://localhost:7234/api/Orders/order-counts", SetReturnRate),
+        fetchData("https://localhost:7234/api/Orders/orders-count?duration=last7days", SetSevenDaysSale),
+        fetchData("https://localhost:7234/api/Orders/orders-count?duration=last12months", setTwelveMonthSales),
         fetchData("https://localhost:7234/api/Orders/product-counts-by-brand", setBrandsCount),
-        fetchData("https://localhost:7234/api/Orders/total-orders-today", setTodayOrders),
+        fetchData("https://localhost:7234/api/Orders/dashboard-combined-data", setCombinedData),
+        
       ]);
     };
     apiCalls();
-  }, []);
+  },[]);
   
   const data3 = {
     labels: [`Achieved ${todayOrders}`, `Remaining ${10 - todayOrders}`],
@@ -150,54 +159,34 @@ export default function DashBoard() {
       },
     },
   };
-console.log(twelveMonthSales)
   return (
     <div className="DashboardContainer">
+      {Object.entries(combinedData).map(([dataName,value],index) =>
       <div className="each-graph-container">
-        <h1 className="graph-heading">Total Customers</h1>
+        <h1 className="graph-heading">{dataName}</h1>
         <img
-          src="https://res.cloudinary.com/dbatijrbu/image/upload/v1701689454/service_9119160_luxciw.png"
-          alt="Total Customers"
+          src={iconData[index]}
+          alt={dataName}
           className="revenue-img"
         />
-        <p className="revenue">{customers}</p>
-      </div>
+        <p className="revenue">{value}</p>
+      </div>)}
       <div className="each-graph-container">
-        <h1 className="graph-heading">Total Sales</h1>
-        <img
-          src="https://res.cloudinary.com/dbatijrbu/image/upload/v1701689454/sale_5661388_zjowna.png"
-          alt="Total Sales"
-          className="revenue-img"
+        <h1 className="graph-heading">Avg Return Rate</h1>
+        <GaugeChart
+          id="gauge-chart5"
+          nrOfLevels={6}
+          percent={parseFloat(returnRate/100)}
+          arcPadding={0.008}
+          needleColor="#000000"
+          needleBaseColor="#0000000"
+          animate={true}
+          cornerRadius={0}
+          animDelay={1500}
+          textColor="#00cc66"
+          hideText={true}
         />
-        <p className="revenue">{sales}</p>
-      </div>
-
-      <div className="each-graph-container">
-        <h1 className="graph-heading">Avg Sold Quantity</h1>
-        <img
-          src="https://res.cloudinary.com/dy2gsniki/image/upload/v1702286813/sold-out_2037835_yaxcif.png"
-          alt="Avg Sold Quantity"
-          className="revenue-img"
-        />
-        <p className="revenue">{avgSoldQuantity} Units</p>
-      </div>
-      <div className="each-graph-container">
-        <h1 className="graph-heading">Avg Spend per Order</h1>
-        <img
-          src="https://res.cloudinary.com/dy2gsniki/image/upload/v1702287666/charity_5292590_qfgfov.png"
-          alt="Avg Spend per Order"
-          className="revenue-img"
-        />
-        <p className="revenue">&#8377; {avgSpendPerOrder}</p>
-      </div>
-      <div className="each-graph-container revenue-container">
-        <h1 className="graph-heading">Total-Revenue</h1>
-        <img
-          src="https://res.cloudinary.com/dy2gsniki/image/upload/v1701933913/earnings_10013195_slk4eg.png"
-          alt="Total-Revenue"
-          className="revenue-img"
-        />
-        <p className="revenue">&#8377; {revenue}</p>
+        <p className="revenue">{returnRate}%</p>
       </div>
       <div className="each-graph-container months-container">
         <h1 className="graph-heading">Orders Per Month</h1>
@@ -221,23 +210,7 @@ console.log(twelveMonthSales)
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <div className="each-graph-container">
-        <h1 className="graph-heading">Avg Return Rate</h1>
-        <GaugeChart
-          id="gauge-chart5"
-          nrOfLevels={6}
-          percent={avgReturnRate}
-          arcPadding={0.008}
-          needleColor="#000000"
-          needleBaseColor="#0000000"
-          animate={true}
-          cornerRadius={0}
-          animDelay={1500}
-          textColor="#00cc66"
-          hideText={true}
-        />
-        <p className="revenue">{returnRate.toFixed(2)}%</p>
-      </div>
+      
       <div className="each-graph-container width-container">
         <h1 className="graph-heading">Today's Total Orders</h1>
         <div className="doughnut-chart">

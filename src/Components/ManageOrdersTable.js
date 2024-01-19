@@ -1,7 +1,7 @@
-import "./ManageOrdersTable.css"
+import "../Css/Order-Management/ManageOrdersTable.css"
 import { useState,useEffect,useCallback } from "react";
 import { FaSearch } from "react-icons/fa";
-
+const orderStatusData = ["Ordered","Shipped" ,"Delivered","Cancelled","Returned"]
 export default function ManageOrdersTable({setOrderStatusData}) {
   const [allOrders, setAllOrders] = useState([]);
   const [userSearchId, setUserSearchId] = useState("");
@@ -62,17 +62,14 @@ export default function ManageOrdersTable({setOrderStatusData}) {
     }
   };
   const updateOrderStatus = async (value, orderId) => {
-    const orderStatusDetails = {
-      orderStatus: value,
-    };
-
     const options = {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(orderStatusDetails),
+      body: JSON.stringify(value),
     };
+    console.log("Update Options:", options);
 
     try {
       await fetch(`https://localhost:7234/api/Orders/update-order-status/${orderId}`, options);
@@ -128,12 +125,9 @@ export default function ManageOrdersTable({setOrderStatusData}) {
                         <td><select value={eachOrderData.orderStatus}
                          onChange={(e)=>updateOrderStatus(e.target.value,eachOrderData.orderId)}
                           className={`status ${eachOrderData.orderStatus}`}>
-                            <option  value="Ordered">Ordered</option>
-                            <option value="Delivered">Delivered
-                            </option>
-                            <option value="Cancelled">Cancelled</option>
-                            <option value="Returned">Returned</option>
-                            <option value = "Shipped">Shipped</option>
+                            {orderStatusData.map((eachStatus) => 
+                            <option value={eachStatus} >{eachStatus}</option>)}
+                           
                             </select></td>
                         <td style={{width:"80px"}}><strong>&#8377; {eachOrderData.totalOrderAmount}</strong></td>
                         <td>{eachOrderData.deliveryAddress}</td>

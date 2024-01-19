@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import "./Sidebar.css";
+import "../Css/Sidebar.css";
 import { MdOutlineDashboard } from "react-icons/md";
 import { GrCubes } from "react-icons/gr";
 import { MdOutlineInventory } from "react-icons/md";

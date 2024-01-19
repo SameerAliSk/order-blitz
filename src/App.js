@@ -1,29 +1,31 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
-import ManageOrdersPage from "./ManageOrdersPage";
-import DashBoardPage from "./DashBoardPage";
-import InventoriesPage from "./InventoriesPage";
-import Login from "./Login";
-import ForgotPassword from "./ForgotPassword";
-import ResetPassword from "./ResetPassword";
-import SignUp from "./SignUp";
-import UpdateProductsPage from "./UpdateProductsPage";
-
+import ManageOrdersPage from "./Pages/OrderManagement/ManageOrdersPage";
+import DashBoardPage from "./Pages/OrderManagement/DashBoardPage";
+import InventoriesPage from "./Pages/OrderManagement/InventoriesPage";
+import LoginPage from "./Pages/Authentication/LoginPage";
+import ForgotPasswordPage from "./Pages/Authentication/ForgotPasswordPage";
+import ResetPasswordPage from "./Pages/Authentication/ResetPasswordPage";
+import SignUpPage from "./Pages/Authentication/SignUpPage";
+import UpdateProductsPage from "./Pages/OrderManagement/UpdateProductsPage";
+import {AuthenticatedRoutes,AuthorizedRoutes} from "./Components/AuthenticatedAndAuthorizedRoutes";
+import NotFound from "./Components/NotFound";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Login/>}/>
-          <Route exact path="/forgot-password" element={<ForgotPassword/>}/>
-          <Route exact path="/reset-password" element={<ResetPassword/>}/>
-          <Route exact path="/sign-up" element={<SignUp/>}/>
-          <Route exact path="/dashboard" element={<DashBoardPage />} />
-          <Route exact path="/manage-orders" element={<ManageOrdersPage />} />
-          <Route exact path="/inventories" element={<InventoriesPage />} />
-          <Route exact path="/update-products-data" element= {<UpdateProductsPage/>}/>
+          <Route  path="/" element={<LoginPage/>}/>
+          <Route  path="/forgot-password" element={<ForgotPasswordPage/>}/>
+          <Route  path="/reset-password" element={<ResetPasswordPage/>}/>
+          <Route  path="/add-admin" element={(<AuthenticatedRoutes><SignUpPage/></AuthenticatedRoutes>)}/>
+          <Route  path="/dashboard" element={(<AuthenticatedRoutes><AuthorizedRoutes userRole="Admin"><DashBoardPage /></AuthorizedRoutes></AuthenticatedRoutes>)} />
+          <Route  path="/manage-orders" element={(<AuthenticatedRoutes><AuthorizedRoutes userRole="Admin"><ManageOrdersPage /></AuthorizedRoutes></AuthenticatedRoutes>)} />
+          <Route  path="/inventories" element={(<AuthenticatedRoutes><AuthorizedRoutes userRole="Admin"><InventoriesPage /></AuthorizedRoutes></AuthenticatedRoutes>)} />
+          <Route  path="/update-products-data" element= {(<AuthenticatedRoutes><AuthorizedRoutes userRole="Admin"><UpdateProductsPage/></AuthorizedRoutes></AuthenticatedRoutes>)}/>
+          <Route path = "*" element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
     </div>

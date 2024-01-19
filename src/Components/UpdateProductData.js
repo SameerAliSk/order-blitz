@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import './UpdateProductData.css';
+import '../Css/Order-Management/UpdateProductData.css';
 
 
 export default function UpdateProductData() {

@@ -1,0 +1,28 @@
+.authentication-container {
+background-color: #ffffff;
+height: 100vh;
+text-align: center;
+background-size: cover;
+}
+.authentication-img {
+    height: 70vh;
+    max-width: 100%;
+    
+}
+.login-btn {
+    background-color: #2874f0;
+    border-radius: 6px;
+    height: 40px;
+    width: 100px;
+    border: 0px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+@media  screen and (max-width:768px) {
+    .authentication-img {
+        height: 60vh;
+        width: 100%;
+    }
+}

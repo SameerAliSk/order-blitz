@@ -1,15 +1,27 @@
-import "./Nav.css";
+import "../Css/Nav.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { HiMenu,} from "react-icons/hi";
 import Sidebar from "./Sidebar";
-function Nav() {
+import Cookies from 'js-cookie';
+function Nav({ location }) {
   const [sidebarOpen, setIsSidebarOpen] = useState(false);
+  const email = atob(localStorage.getItem('AdminEmail'));
   const Navigate = useNavigate();
+
+  
 
   const onClickLogo = () => {
     Navigate("/dashboard", { relative: true });
   };
+  const handleLogOut = () => {
+    localStorage.clear();
+    Cookies.remove('jwtToken');
+    Navigate('/',{replace:"true"});
+  };
+  const handleAddAdmin = () => {
+  Navigate(`/add-admin?pathname=${encodeURIComponent(location?.pathname)}`, {replace: true }); 
+  }
   return (
     <div>
       <nav className="navbar" style={{ height: "10vh" }}>
@@ -30,10 +42,10 @@ function Nav() {
           <p style={{color:"#0066b2", fontFamily:"sans-serif", fontSize:"20px", margin:"4px",fontWeight:"600px"}}>Blitz</p>
         </div></div>
         <div className="menu menu-right iconHeader">
-          <p style={{color:"#ffffff", fontSize:"24px",margin:"0"}}>S</p>
+          <p style={{color:"#ffffff", fontSize:"24px",margin:"0"}}>{email[0].toUpperCase()}</p>
           <div className="dropdown-content">
-          <a href="/sign-up">Add Admin</a>
-          <a href="/">Log Out</a>
+          <p onClick={handleAddAdmin}>Add Admin</p>
+          <p onClick={handleLogOut}>Log Out</p>
         </div>
         </div>
       </nav>
