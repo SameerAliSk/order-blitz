@@ -1,5 +1,6 @@
 import "../Css/Order-Management/InventoriesTable.css";
 import { useState, useEffect } from "react";
+import { FaRegFilePdf } from "react-icons/fa";
 export default function InventoriesTable() {
   const [categoryId, setCategoryId] = useState("");
   const [allCategoryNames, setAllCategoryNames] = useState([]);
@@ -52,6 +53,22 @@ export default function InventoriesTable() {
       setIsCategoryIdNull(true);
     }
   };
+  const downloadPdf = async () => {
+    try {
+        const response = await fetch(`https://localhost:7234/api/Categories/download-pdf/${categoryId}`);
+        console.log(response)
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'products.pdf');
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+    } catch (error) {
+        console.error('Error downloading PDF:', error);
+    }
+};
 
   const getFilteredCategoryName = () => {
     const filteredCategory = allCategoryNames.find((category) => category.categoryId === categoryId);
@@ -80,6 +97,10 @@ export default function InventoriesTable() {
           <h1 className="table-Heading">
             {getFilteredCategoryName()} Inventory
           </h1>
+          {categoryId && <div className="download-pdf-btn" onClick={downloadPdf}>
+            <i><FaRegFilePdf style={{height:"25px", width:"30px"}} /></i>
+            <p className="download-pdf-btn-text">DOWNLOAD PDF</p>
+          </div>}
         </div>
         {(displayErrorMsg || isCategoryIdNull) ? (
           <div className="inventory-error-msg">
